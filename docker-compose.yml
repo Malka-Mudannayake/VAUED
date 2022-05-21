@@ -10,17 +10,6 @@ services:
       - 9745
     ports:
       - 9745:9745
-
-  node_exporter:
-    image: quay.io/prometheus/node-exporter:latest
-    container_name: node_exporter
-    command:
-      - '--path.rootfs=/host'
-    network_mode: host
-    pid: host
-    restart: unless-stopped
-    volumes:
-      - '/:/host:ro,rslave'
   
   prometheus:
     image: prom/prometheus:v2.21.0
@@ -30,9 +19,6 @@ services:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
-    depends_on: 
-      - exporter
-      - node_exporter
   
   grafana:
     image: grafana/grafana:7.5.7
