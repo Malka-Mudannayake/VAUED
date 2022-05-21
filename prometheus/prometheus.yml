@@ -10,5 +10,6 @@ scrape_configs:
     static_configs:
       - targets:
           - 'exporter:9745'
+          - 'node_exporter:9100'
 
           
