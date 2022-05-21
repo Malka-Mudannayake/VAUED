@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  exporter:
+    hostname: exporter
+    image: infinityworks/github-exporter
+    environment:
+      REPOS: viduraperera/Ambrosia, Malka-Mudannayake/Hello-World, radyas/mad-new
+    tty: true
+    stdin_open: true
+    expose:
+      - 9171
+    ports:
+      - 9171:9171
+  
+  prometheus:
+    image: prom/prometheus:v2.21.0
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+  
+  grafana:
+    image: grafana/grafana:7.5.7
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - grafana-data:/var/lib/grafana
+      
+
+volumes:
+  prometheus-data:
+  grafana-data:

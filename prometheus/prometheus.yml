@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 30s
+  scrape_timeout: 10s
+
+rule_files:
+
+scrape_configs:
+  - job_name: github-exporter
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - 'exporter:9171'
