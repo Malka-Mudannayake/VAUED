@@ -30,6 +30,9 @@ services:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+    depends_on: 
+      - exporter
+      - node_exporter
   
   grafana:
     image: grafana/grafana:7.5.7
