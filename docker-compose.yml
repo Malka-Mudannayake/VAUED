@@ -3,15 +3,13 @@ version: '3'
 services:
   exporter:
     hostname: exporter
-    image: infinityworks/github-exporter
+    image: nbarrientos/cryptowat_exporter
     environment:
-      REPOS: viduraperera/Ambrosia, Malka-Mudannayake/Hello-World, radyas/mad-new
-    tty: true
-    stdin_open: true
+      TZ: Europe/Zurich
     expose:
-      - 9171
+      - 9745
     ports:
-      - 9171:9171
+      - 9745:9745
   
   prometheus:
     image: prom/prometheus:v2.21.0
